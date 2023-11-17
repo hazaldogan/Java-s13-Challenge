@@ -7,14 +7,19 @@ public class Employee {
     private String fullName;
     private String email;
     private String password;
-    private String[] healthplans;
+    private String[] healthPlans;
 
-    public Employee(int id, String fullName, String email, String password, String[] healthplans) {
+    public Employee(int id, String fullName) {
+        this.id = id;
+        this.fullName = fullName;
+    }
+
+    public Employee(int id, String fullName, String email, String password, String[] healthPlans) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.healthplans = healthplans;
+        this.healthPlans = healthPlans;
     }
 
     public int getId() {
@@ -33,8 +38,8 @@ public class Employee {
         return password;
     }
 
-    public String[] getHealthplans() {
-        return healthplans;
+    public String[] getHealthPlans() {
+        return healthPlans;
     }
 
     public void setId(int id) {
@@ -53,8 +58,8 @@ public class Employee {
         this.password = password;
     }
 
-    public void setHealthplans(String[] healthplans) {
-        this.healthplans = healthplans;
+    public void setHealthplans(String[] healthPlans) {
+        this.healthPlans = healthPlans;
     }
 
     @Override
@@ -64,15 +69,38 @@ public class Employee {
                 " fullName: " + fullName +
                 " email: " + email +
                 " password: " + password +
-                " healthplans: " + Arrays.toString(healthplans) +
+                " healthPlans: " + Arrays.toString(healthPlans) +
                 '}';
     }
 
-    public void addHealthplan(int index,String name){
-        if(healthplans[index]==null){
-            healthplans[index] = name;
-        }else{
-            System.out.println("Bu index dolu.");
+    public void addHealthplan(int index, String name){
+        if(index < 0){
+            System.out.println("Index değeri 0'dan küçük olamaz.");
+        } else {
+            try {
+                boolean isExist = false;
+                for (String healthplan : healthPlans) {
+                    if (healthplan != null && healthplan.equals(name)) {
+                        isExist = true;
+                        System.out.println(name + " dizi içerisinde mevcut.");
+                        break;
+                    }
+                }
+
+                if (!isExist) {
+                    if (healthPlans[index] == null) {
+                        healthPlans[index] = name;
+                    } else {
+                        System.out.println("İlgili index dolu");
+                    }
+                }
+            } catch (ArrayIndexOutOfBoundsException ex){
+                System.out.println("Invalid index: " + index);
+            } catch (NullPointerException npe){
+                System.out.println("Null Pointer Exception: " + npe.getMessage());
+            } catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

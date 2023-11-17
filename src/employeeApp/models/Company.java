@@ -65,10 +65,14 @@ public class Company {
     }
 
     public void addEmployee(int index, String name){
-        if(developerNames[index] == null){
-            developerNames[index] = name;
-        }else{
-            System.out.println("Bu index dolu");
+        try {
+            if (developerNames[index] == null) {
+                developerNames[index] = name;
+            } else {
+                System.out.println("Bu index dolu");
+            }
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.out.println("Olmayan index için atama yapıldı" + index);
         }
     }
 
